@@ -16,7 +16,7 @@ services:
       DATABASE_PASSWORD: admin123
       DATABASE_SSL: false
       # AUTHENTICATION_DATABASE: admin
-      CORS_ORIGIN: *
+      CORS_ORIGIN: "*"
       ADMIN_JWT_SECRET: $ErhxCk10YqNCImwodl5Ml/Maqnw46oTyLjr+9Na4bjmJSLVWnCS90BJRAAkLsspj98caylAJgikBO9ZS0jEiOQ==
     ports:
       - 1337:1337
