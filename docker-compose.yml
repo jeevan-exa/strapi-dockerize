@@ -8,7 +8,7 @@ services:
       NODE_ENV: ${NODE_ENV:-development}
       # == MongoDB Atlas configuration ==
       DATABASE_CLIENT: mongo
-      DATABASE_HOST: ${DATABASE_HOST:-127.0.0.1}
+      DATABASE_HOST: ${DATABASE_HOST:-mongodb}
       DATABASE_SRV: ${DATABASE_SRV:-true}
       DATABASE_PORT: ${DATABASE_PORT:-27017}
       DATABASE_NAME: ${DATABASE_NAME:-myStrapiApp}
@@ -16,7 +16,24 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD:-admin123}
       DATABASE_SSL: ${DATABASE_SSL:-false}
       # AUTHENTICATION_DATABASE: admin
-      CORS_ORIGIN: ${CORS_ORIGIN}
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET:-ErhxCk10YqNCImwodl5Ml/Maqnw46oTyLjr+9Na4bjmJSLVWnCS90BJRAAkLsspj98caylAJgikBO9ZS0jEiOQ==}
     ports:
       - '${PORT:-1337}:${PORT:-1337}'
+  
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DATABASE_USERNAME:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${DATABASE_PASSWORD:-admin123}
+    volumes:
+      - mongodb-data:/data/db
+    ports:
+      - 27017:27017
+    healthcheck:
+    test: echo 'db.runCommand("ping").ok' | mongo 10.10.10.60:27017/test --quiet
+    interval: 30s
+    timeout: 10s
+    retries: 3
+    restart: unless-stopped
