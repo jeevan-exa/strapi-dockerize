@@ -3,7 +3,7 @@
 # In our example, we want to import the Strapi image. So we write 'strapi/base' for the image name. ':14' is a tag that means we use NodeJS v14 (The latest LTS version).
 FROM strapi/base:14
 
-MAINTAINER kevin
+MAINTAINER Jeevan J
 
 # Set up working directory that will be used to copy files/directories below :
 WORKDIR /app
@@ -39,4 +39,4 @@ EXPOSE 1337
 
 # We need to define the command to launch when we are going to run the image. We can use the keyword 'CMD' to do that.
 # The following command will execute "yarn start".
-CMD ["yarn", "start"]
+CMD ["yarn", "develop"]
